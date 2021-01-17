@@ -990,7 +990,7 @@ class BoardView(Gtk.DrawingArea):
 
     def drawCords(self, context, rectangle):
         thickness = 0.01
-        signsize = 0.02
+        signsize = 0.01
 
         if (not self.show_cords) and (not self.setup_position):
             return
@@ -1017,7 +1017,10 @@ class BoardView(Gtk.DrawingArea):
                     Pango.FontDescription("bold %d" % sign_size))
                 width = layout.get_extents()[1].width / pangoScale
                 height = layout.get_extents()[0].height / pangoScale
-
+                if width<3:
+                    return
+                if height<4:
+                    return
                 # Draw left side
                 context.move_to(xc_loc - thick - width, side * num + yc_loc + height / 2 + thick * 3)
                 PangoCairo.show_layout(context, layout)
